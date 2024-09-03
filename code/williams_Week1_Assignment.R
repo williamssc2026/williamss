@@ -5,9 +5,6 @@
 
 # Create 3 numeric vectors and 2 character vectors that are each 15 values in length with the following structures: [15 points; 3 each]
   # One character vector with all unique values
-v1<- c("dog"      "table"    "grass"  cloud"    "wool"     "oxygen"   "water"    "bandaid", "lipstick" "hair"     "wire"     "fabric"   "battery"  "picture"  "ball")
- v2<- C("dog"      "cat"      "deer"     "mouse"    "hamster"  "table"    "chair"    "desk", "couch"    "cabinet"  "oxyen"    "nitrogen" "sulfur"   "neon"     "zinc")
- cbind(
   # One character vector with exactly 3 unique values
   # One numeric vector with all unique values
   # One numeric vector with some repeated values (number of your choosing)
