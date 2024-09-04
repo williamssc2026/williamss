@@ -5,12 +5,19 @@ stuff
 
 # Create 3 numeric vectors and 2 character vectors that are each 15 values in length with the following structures: [15 points; 3 each]
   # One character vector with all unique values
+uniquemain <-c("dog", "table", "grass", "cloud", "wool", "oxygen", "water", "bandaid", "lipstick", "hair", "wire", "fabric", "cake", "game", "program")
   # One character vector with exactly 3 unique values
+tvalue<- c("dog", "cat", "deer", "mouse", "hamster", "table", "chair", "desk", "couch", "cabinet", "oxygen", "nitrogen", "sulfur", "neon", "zinc")
   # One numeric vector with all unique values
+nunique<- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
   # One numeric vector with some repeated values (number of your choosing)
+choosing<- c(1,1,1,2,3,4,4,4,5,6,6,7,8,9,9)
   # One numeric vector with some decimal values (of your choosing)
+decimal<- c(1.1, 2,3,4.5,5,6,6.1,6.2,6.3,7,8.5,8.9,9,10,10.5)
 
 # Bind the vectors into a single data frame, rename the columns, and make the character vector with unique values the row names.[3 points]
+mydata<-data.frame(uniquemain, tvalue, nunique, decimal, choosing)
+
 
 # Remove the character vector with unique values from the data frame.[2 points]
 
