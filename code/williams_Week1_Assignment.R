@@ -1,7 +1,7 @@
 # Now it is time to create your own data frame using the tools we have learned this week.
 # First, resave this script as: yourlastname_Week1_Assignment [1 point]
   # e.g. mine would be Wilson_Week1_Assignment
-
+stuff
 
 # Create 3 numeric vectors and 2 character vectors that are each 15 values in length with the following structures: [15 points; 3 each]
   # One character vector with all unique values
