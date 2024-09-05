@@ -17,16 +17,23 @@ decimal<- c(1.1, 2,3,4.5,5,6,6.1,6.2,6.3,7,8.5,8.9,9,10,10.5)
 
 # Bind the vectors into a single data frame, rename the columns, and make the character vector with unique values the row names.[3 points]
 mydata<-data.frame(uniquemain, tvalue, nunique, decimal, choosing)
-
+colnames(mydata)<-c ("unique.char", "three.val", "unique.num", "deci", "repeat")
+row.names(mydata)<-c (uniquemain)
 
 # Remove the character vector with unique values from the data frame.[2 points]
-
+mydata$unique.char<- NULL
 # Add 1 row with unique numeric values to the data frame.[2 points]
-
+new_row<- list("5", "1", "2", "3", "4")
+mydata<- rbind(mydata, new_row)
 # Export the data frame as a .csv file [2 points]
-
+write.csv(mydata, file = "mydatafile")
 # Generate summary statistics of your data frame and copy them as text into your script under a new section heading. [2 points]
-
+summary(mydata)
+#summary of data frame:
+# three.val          unique.num            deci              repeat         
+Length:16          Length:16          Length:16          Length:16         
+Class :character   Class :character   Class :character   Class :character  
+Mode  :character   Mode  :character   Mode  :character   Mode  :character  
 # Push your script and your .csv file to GitHub in a new "Week1" folder. [3 points]
 
 
