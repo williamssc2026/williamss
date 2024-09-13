@@ -22,6 +22,9 @@ object<-genetic.drift(p0=0.5,show="heterozygosity")
 plot(object,show="genotypes")
         # Depending on the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
     # After running the function example, manipulate a parameter within the function to create a new result. 
+genetic.drift()
+object<-genetic.drift(p0=0.7,show="heterozygosity")
+plot(object,show="genotypes")
         # Common options might be allele frequency, population size, fitness level, etc. 
         # Add the results of this manipulation to your script (if in the console) or upload the new plot.
        
@@ -62,14 +65,21 @@ gamma-alpha
 
     # Copy-paste into your script - and run - an example from the reference manual for a function to calculate Simpson's diversity. 
 data(BCI)
+i <- sample(nrow(BCI), 5)
+mod <- renyi(BCI[i,])
+plot(mod)
+mod <- renyiaccum(BCI[i,])
+plot(mod, as.table=TRUE, col = c(1, 2, 2))
+persp(mod)
+        # Depending on the example usage of the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
+    # After running the function example, modify your script to generate another diversity metric that is NOT part of the example.
+data(BCI)
 i <- sample(nrow(BCI), 20)
 mod <- renyi(BCI[i,])
 plot(mod)
 mod <- renyiaccum(BCI[i,])
 plot(mod, as.table=NULL, col = c(6, 7, 10))
 persp(mod)
-        # Depending on the example usage of the function, either upload a plot of the result or use print() and copy/paste the console output into your script.
-    # After running the function example, modify your script to generate another diversity metric that is NOT part of the example. 
         # If there are multiple diversity metrics in the example script, none of these will count as the modified script.
         # Hint: If the function can "only" calculate Simpson's diversity, the inverse of Simpson's diversity is another common metric. 
         # Add the results of this manipulation to your script (if in the console) or upload the new plot.
