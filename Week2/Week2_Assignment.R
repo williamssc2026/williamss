@@ -28,6 +28,8 @@ b.plot <- barplot(df.mean$Mean, names.arg = df.mean$Factor, ylim = c(0,15))
 arrows(b.plot, df.mean$Mean-df.sd$StanDev,
        b.plot, df.mean$Mean+df.sd$StanDev,angle=90,code=3)
   # Change the x and y labels and add a title
+#missing the export function for the pdf
+
 title(main = "maintitle")
 title(xlab = "animal", ylab = "num")
 barplot<- c(mydata$three.val ~ mydata$unique.num, xlab = "Explanatory", ylab = "Response")
@@ -45,7 +47,8 @@ plot(mydata$deci ~ mydata$unique.num, xlab = "Explanatory", ylab = "Response", m
 plot(mydata$deci ~ mydata$unique.num, xlab = "Explanatory", ylab = "Response")
 plot(mydata$deci ~ mydata$unique.num, xlab = "Explanatory", ylab = "Response", main = "Scatter Plot")
   # Export the plot as a JPEG by using the "Export" button in the plotting pane.
-
+#forgot to change x and y
+#didn't change plot names after exporting...
 # Upload both plots with the script used to create them to GitHub. (5 points)
   # Follow the same file naming format as last week for the script.
   # Name plots as Lastname_barplot or Lastname_scatterplot. Save them to your "plots" folder. (5 points)
