@@ -37,7 +37,7 @@ plot(object,show="genotypes")
     # Find a package that will generate standard diversity metrics for community ecology, specifically Simpson's Diversity Index.
 install.packages("vegan")
 library(vegan)
-?simpson.unb
+#?simpson.unb
 data(BCI, BCI.env)
 H <- diversity(BCI)
 simp <- diversity(BCI, "simpson")
@@ -87,5 +87,4 @@ persp(mod)
           # Diversity metrics are frequently used in community ecology for reasons ranging from a quick comparison between sites to understanding community stability.
           # Their calculation can be very tedious by hand - and very fast with a package designed for the operation.
 
-
-
+#those are some trippy plots
