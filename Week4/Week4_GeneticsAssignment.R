@@ -30,3 +30,6 @@ mod.lon2, seems to be overfitted with an excessive amount of data points.
   # Hint: Does one model seem more likely to be over-fitted?
 
 # Which environment would be your very WORST choice for generating a strong yield response? (2 points)
+summary(ge_data$Env)
+I would say Bahawalnagar has the worst reponse due to its low yield reading on the graph since it is between 3000-4000.
+It also has one of the shortest sets of whiskers on both ends, making it a weaker reading than other small plots. It also does not contain any outliers. 
