@@ -3,6 +3,7 @@
   # Search datadryad.org by the paper title and download the dataset. It will include .csv files and R scripts, organized by figure.
   # Save the script and change the working directory on lines 8 and 115 to match your computer
   # Upload the plot you've created to GitHub. (4 points)
+myplot
   # Zoom into your plot to look at the distribution for different strains.
 
 # Do all of the strains in the plot have the same distributions (yes/no)? (1 pt)
