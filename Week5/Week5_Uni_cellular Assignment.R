@@ -7,12 +7,17 @@ myplot
   # Zoom into your plot to look at the distribution for different strains.
 
 # Do all of the strains in the plot have the same distributions (yes/no)? (1 pt)
-
+No
 # Based on these observations of your strain distributions, why did the authors use a Kruskal-Wallis test rather than ANOVA to compare the strains? (3 pts)
-
+The Kruskal-Wallis test analyzes the median better, and is more useful for this graph because seeral of the strains do not vary much from eachother
+which makes it difficult to get an accurate reading of the mean. ANOVA would not work because the assumptions are not met since this graph does not have a normal distrobution. 
 
 # Use the fitdist() and gofstat() functions to compare the poisson, negative binomial, and logistic distributions for:
   # (1) - The number of cells of progeny (data$Num.Cells.Progeny)
+install.packages("fitdistrplus")
+library(fitdistrplus)
+fit<- fitdist(data$Num.Cells.Progeny, "pois")
+
   # (2) - The replication time (data$RepTime.sec)
     #HINT- "Num.Cells.Progeny" has defined breaks. To display results, use the formula with the "chisqbreaks" argument as follows:
       #gofstat(list(fit.1, fit.2, fit.3, etc), chisqbreaks=c(1,2,4,8,16,32,64))
