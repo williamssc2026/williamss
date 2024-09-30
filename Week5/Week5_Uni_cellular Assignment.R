@@ -16,8 +16,8 @@ which makes it difficult to get an accurate reading of the mean. ANOVA would not
   # (1) - The number of cells of progeny (data$Num.Cells.Progeny)
 install.packages("fitdistrplus")
 library(fitdistrplus)
-fit<- fitdist(data$Num.Cells.Progeny, "pois")
-
+NCP<- data$Num.Cells.Progeny
+fit.logis <- fitdist(NCP, distr = "logis")
   # (2) - The replication time (data$RepTime.sec)
     #HINT- "Num.Cells.Progeny" has defined breaks. To display results, use the formula with the "chisqbreaks" argument as follows:
       #gofstat(list(fit.1, fit.2, fit.3, etc), chisqbreaks=c(1,2,4,8,16,32,64))
