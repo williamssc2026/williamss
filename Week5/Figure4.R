@@ -3,9 +3,9 @@
 library(ggplot2)
 library(dplyr)
 library(reshape2)
+install.packages("ggplot2")
 
-
-data <- read.csv(file=("C:/GitHub/williamss/Week5/Figure4Data.csv"), header=T)
+setwd("C:/GitHub/williamss/Week5/")
 
 # Originally (in 2017-04-12 script) I used unweighted means for ordering strains
 #  but used weighted means for plotting size distributions
@@ -20,16 +20,16 @@ data <- read.csv(file=("C:/GitHub/williamss/Week5/Figure4Data.csv"), header=T)
 
 # First I create a new, separate dataframe from the original
 #   containing just strain and number of cells in the progeny
-data.new <- data.frame(data[1:4])
+data.new <- data.frame(data [1:4])
 #   and I create a last column which is the desired frequency (or biomass) which
 #   is equal to the number of cells in the progeny
 data.new$freq <- data.new$Num.Cells.Progeny
-# I omit NAs which cannot be handled by the next line of code
+  # I omit NAs which cannot be handled by the next line of code
 data.new <- na.omit(data.new)
 # This line of code repeats rows by times=$freq
 #   which has now created extra data points and weighted the data by biomass
 #   E.g. a row of progeny = 8 cells is now repeated 8 times
-data.weight <- data.new[rep(row.names(data.new), data.new$freq), 1:4]
+data.weight <- data.new (rep(row.names(data.new), data.new$freq), 1:4)
 
 # Log-base 2 transforms the weighted data
 data.weight$log.progeny <- log(data.weight$Num.Cells.Progeny, 2)

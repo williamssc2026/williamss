@@ -1,7 +1,8 @@
 #Load your libraries - install these if you do not have them:
 library(fitdistrplus)
 library(logspline)
-
+install.packages("logspline")
+install.packages("fitdistrplus")
 
 #Read in the CSV for this week - saved somewhere you can find it:
 setwd("C:/GitHub/R4Eco_2024/Week5")
