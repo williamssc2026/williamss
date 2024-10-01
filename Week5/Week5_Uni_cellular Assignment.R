@@ -19,7 +19,7 @@ which makes it difficult to get an accurate reading of the mean. ANOVA would not
 install.packages("fitdistrplus")
 library(fitdistrplus)
 
-data_zero <- as.numeric(na.omit(Figure4Data$Num.Cells.Progeny))
+data_zero <- as.numeric(na.omit(Figure4Data_1_$Num.Cells.Progeny))
 one.col <- data_zero #All we need to do is change the vector to re-run.
 
 
@@ -37,7 +37,7 @@ gof_resultslogis <- gofstat(fit.nornlogis)
     #HINT- "Num.Cells.Progeny" has defined breaks. To display results, use the formula with the "chisqbreaks" argument as follows:
       #gofstat(list(fit.1, fit.2, fit.3, etc), chisqbreaks=c(1,2,4,8,16,32,64))
 
-data_zero2 <- as.numeric(na.omit(Figure4Data$RepTime.sec))
+data_zero2 <- as.numeric(na.omit(Figure4Data_1_$RepTime.sec))
 one.col2 <- data_zero2
 fit.norm2 <- fitdist(one.col2, distr = "norm")
 fit.normpois2 <- fitdist(one.col2, distr = "pois")
