@@ -15,12 +15,27 @@ which makes it difficult to get an accurate reading of the mean. ANOVA would not
 # Use the fitdist() and gofstat() functions to compare the poisson, negative binomial, and logistic distributions for:
   # (1) - The number of cells of progeny (data$Num.Cells.Progeny)
 ?"fitdist"
-plotdist(Figure4Data$Num.Cells.Progeny)
-install.packages("fitdistrplus")
-library("fitdistrplus")
+
+library(fitdistrplus)
 installed.packages("fitdistrplus")
-clean_data <- na.omit(Figure4Data)
-fit.norm <- fitdist(NCP, distr = "norm")
+
+data_zero <- ifelse(is.na(Figure4Data), 0, Figure4Data)
+one.col <- data_zero #All we need to do is change the vector to re-run.
+
+
+fit.norm <- fitdist(one.col, distr = "norm")
+
+
+
+plotdist(data_zero)
+
+library(fitdistrplus)
+library(MASS)
+install.packages("fitdistrplus")
+install.packages("MASS")
+clean_data <- na.omit(Figure4Data$Num.Cells.Progeny)
+poisson_fit <- fitdist(clean_data,Figure4Data$Num.Cells.Progeny)
+
   # (2) - The replication time (data$RepTime.sec)
     #HINT- "Num.Cells.Progeny" has defined breaks. To display results, use the formula with the "chisqbreaks" argument as follows:
       #gofstat(list(fit.1, fit.2, fit.3, etc), chisqbreaks=c(1,2,4,8,16,32,64))
