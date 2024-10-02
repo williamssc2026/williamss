@@ -4,7 +4,7 @@
   # Save the script and change the working directory on lines 8 and 115 to match your computer
   # Upload the plot you've created to GitHub. (4 points)
 Figure4Data_1_
-
+myplot
   # Zoom into your plot to look at the distribution for different strains.
 
 # Do all of the strains in the plot have the same distributions (yes/no)? (1 pt)
