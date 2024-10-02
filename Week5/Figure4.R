@@ -17,11 +17,10 @@ setwd("C:/GitHub/williamss/Week5/")
 # This script repeats a given row by a frequency equal to the progeny size 
 #   E.g. num.cells.progeny = 8 will have 8 rows, therefore weighting the
 #        count towards these larger but fewer progeny
-
 # First I create a new, separate dataframe from the original
 #   containing just strain and number of cells in the progeny
 data.new <- data.frame(data [1:4])
-#   and I create a last column which is the desired frequency (or biomass) which
+#   and I create a lastdata()#   and I create a last column which is the desired frequency (or biomass) which
 #   is equal to the number of cells in the progeny
 data.new$freq <- data.new$Num.Cells.Progeny
   # I omit NAs which cannot be handled by the next line of code
@@ -29,7 +28,7 @@ data.new <- na.omit(data.new)
 # This line of code repeats rows by times=$freq
 #   which has now created extra data points and weighted the data by biomass
 #   E.g. a row of progeny = 8 cells is now repeated 8 times
-data.weight <- data.new (rep(row.names(data.new), data.new$freq), 1:4)
+data.weight <- data.new(rep(row.names(data.new), data.new$freq), 1:4)
 
 # Log-base 2 transforms the weighted data
 data.weight$log.progeny <- log(data.weight$Num.Cells.Progeny, 2)

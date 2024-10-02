@@ -70,6 +70,10 @@ The negative binomial is the best distrobution because it has the lowest AIC sco
 hist(data_zero2)
 # Based on the patterns of this histograms and Figure 4:
   #Give one hypothesis for an evolutionary process represented by the two tallest bars in your histogram. (8 pts)
+Based on the data showing the different cells over time, it shows that a species could have possibly be introduced to a new environment and started with
+a large abundance. As they stayed in the environment longer, they began to die off due to lack of adaptations and tolerances. As time went on they became more 
+equipped to survive in the new habitat and they began to grow in population again. 
+
   # Don't cheat by looking at the paper! 
     # This hypothesis does not need to be correct - it only needs to be ecologically rational based these two figures.
 
