@@ -6,7 +6,7 @@ library(mgcv)
 # First create mo"MASS"# First create models with the same (y) and method (GLMM) as the published paper, using the GLMM function from this week's tutorial. 
 setwd("C:/GitHub/williamss/Week6/")
 df <- read.csv("Toscano_Griffen_Data.csv")
-glmm.mod <- glmmPQL(activity.level ~ temperature + carapace.width + claw.width, family = binomial,random = ~ 1 | ID, data = df)
+glmm.mod <- glmmPQL(activity.level ~ temperature + carapace.width + claw.width, family = binomial,random = ~ 1 | block, data = df)
   #Create two different models using the same 3 predictor (x) variables from the dataset. (4 points each) 
     # In one model only include additive effects.block
     # In the other model include one interactive effect.
