@@ -28,6 +28,8 @@ because they have less individuals and when their population goes up, the prey p
 # What is one relationship the third species MIGHT have to the first two? (2 pts)
 The third species might be a producer for the prey sepcies. For instance it could be vegetation that fluxuates with the number of r-selected individuals. As
 the predators go up in number, the producers will slightly increase.
+#Byth is the predator and the other two are competing.
+
 #Now copy/paste in the Lotka-Volterra function, plotting script, and load the "deSolve" package from the tutorial:
 install.packages("deSolve")
 library(deSolve)
@@ -81,7 +83,7 @@ LotVmod <- function (Time, State, Pars) {
   This created a similar plot as the one altered before with the same amount of peaks. 
 # Export your final L-V plot with a legend that includes the appropriate genus and/or species name as if the model results were the real plankton data, 
 # and upload with your script. (hint - remember which one is the predator and which is the prey) (8 pts)
-
+#This isn't saved as a plot. There's no file type associated so it can't be opened.
 
 
 
