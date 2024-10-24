@@ -1,9 +1,18 @@
 # For this week it's time to start exploring your own ideas and questions in R.
   # There are at least five options in the dataset to create the following comparisons.
+setwd("C:/GitHub/williamss/Week9")
 
 # (Q1 - 12 pts) Use the dataset from the tutorial to complete one redundancy analysis (RDA) with variance partitioning on a different community (NOT the nematodes).
   # Explain the ecological importance of your significant predictor variables, or the importance if none are significant for your community.
+library(readxl)
+abiotic.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Abiotic factors")
+abiotic <- as.data.frame(abiotic.tibble)
 
+
+library(vegan)
+colnames(abiotic)
+ord <- rda(nema.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic)
+ord
 # (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
 
