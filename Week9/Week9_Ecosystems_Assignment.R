@@ -27,9 +27,6 @@ Ab.means1 <- Ab.means[,-35]
 Ab.means2 <- Ab.means1[,-2]
 Ab.means3 <- Ab.means2 [,-1]
 
-colnames(abiotic.means2)
-ord <- rda(Ab.means3 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic.means2)
-ord
 
 library(vegan)
 colnames(abiotic)
