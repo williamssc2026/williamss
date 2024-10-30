@@ -30,8 +30,6 @@ row.names(veg2)<-veg2 [,1]
 
 veg3<-veg2[, -1]
 
-
-
 library(vegan)
 ord <- rda(veg3 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, Abiotic.means3)
 ord
@@ -41,6 +39,21 @@ ord
 
 # (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
+library(readxl)
+
+data.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Data Deschampsia_cespitosa")
+data <- as.data.frame(data.tibble)
+
+library(vegan)
+
+
+mod<- lm(as.numeric(data2$Dry_biomass)~data2$Landuse)
+summary(mod)
+data2<- na.omit(data)
+typeof(data2)
+data2<- as.data.frame(data2)
+
+
 
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
