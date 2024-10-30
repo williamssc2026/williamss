@@ -5,36 +5,39 @@ setwd("C:/GitHub/williamss/Week9")
 # (Q1 - 12 pts) Use the dataset from the tutorial to complete one redundancy analysis (RDA) with variance partitioning on a different community (NOT the nematodes).
   # Explain the ecological importance of your significant predictor variables, or the importance if none are significant for your community.
 library(readxl)
-abiotic.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Abiotic factors")
-abiotic <- as.data.frame(abiotic.tibble)
+veg.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Vegetation_plots_all_sites")
+veg <- as.data.frame(veg.tibble)
+head(veg)
 
-Ab.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Absorbance_Data_Ecoplates")
-Ab <- as.data.frame(Ab.tibble)
-head(Ab)
-abiotic$names <- paste(abiotic$Site, abiotic$Land_Use, abiotic$Plot)
-head(abiotic)
-names(Ab)
-Ab$names <- paste(Ab$Landuse, Ab$Rep, Ab$Water)
-abiotic.means <- aggregate(x = abiotic, by = list(abiotic$names), FUN = "mean")
+Abiotic.tibble <- read_excel("Penaetal_2016_data.xlsx", sheet = "Abiotic factors")
+Abiotic <- as.data.frame(Abiotic.tibble)
+head(Abiotic)
+
+Abiotic$names <- paste(Abiotic$Site, Abiotic$LandUse, Abiotic$Plot)
+veg$names <- paste(veg$Site, veg$Landuse, veg$Plot)
+
+Abiotic.means <- aggregate(x = Abiotic, by = list(Abiotic$names), FUN = "mean")
 Ab.means <- aggregate(x = Ab, by = list(Ab$names), FUN = "mean")
 
-abiotic.means1 <- abiotic.means[,-16]
-abiotic.means2 <- abiotic.means1[,-1:-6]
-abiotic.means2 <- sapply(abiotic.means2, as.numeric )
-abiotic.means2 <- as.data.frame(abiotic.means2)
+Abiotic.means1 <- Abiotic.means[-19,]
+Abiotic.means2 <- Abiotic.means1[,-2:-6]
+Abiotic.means3<- Abiotic.means2 [, -11]
 
-Ab.means1 <- Ab.means[,-35]
-Ab.means2 <- Ab.means1[,-2]
-Ab.means3 <- Ab.means2 [,-1]
+veg1<- veg[,-1:-3]
+veg2<- veg1[,c(94, 1:93)]
+
+row.names(veg2)<-veg2 [,1]
+
+veg3<-veg2[, -1]
+
 
 
 library(vegan)
-colnames(abiotic)
-ord <- rda(Ab.means3 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic)
+ord <- rda(veg3 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, Abiotic.means3)
 ord
 
-str(Ab.means2)
-Ab.means2$Group.1 <- as.numeric(as.character(Ab.means2$Group.1))
+
+
 
 # (Q2 - 12 pts) Then use the dataset from the tutorial to create a linear model related to your RDA. Try multiple predictors to find the best fit model.
   # Explain the ecological importance of the significant predictors, or lack of significant predictors.
