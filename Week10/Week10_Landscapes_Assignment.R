@@ -1,5 +1,11 @@
 # Load the packages from this week's tutorial, aka vignette
 #We looked at brook trout population demographics in relationship to water quality and stream flashiness.
+pkgs <- installed.packages()
+if (!('devtools' %in% pkgs)) { install.packages('devtools') }
+if ('dbfishR' %in% pkgs) { remove.packages('dbfishR') }
+devtools::install_github(repo = 'Team-FRI/dbfishR', upgrade = 'never')
+
+library(dbfishR)
 
 
 #1: Give two specific conclusions you can make from these patterns. (4 pts)
