@@ -139,6 +139,8 @@ plot_smooth(gam.mod, view="RBI", rm.ranef=FALSE)
   #In prep for that, find one data source to compare with either the data in dbfishR OR DataRetrieval. (5 pts)
   #Read data from that source into your script. (5 pts)
   #Create any analysis of your choice that combines the two data sources, this can be as simple as a linear model. (5 pts)
+#DryAd data set: https://datadryad.org/stash/dataset/doi:10.5061/dryad.sxksn02zj
+#compares to dbfishR "stream flashiness" data by testing environmental factors like water flow, temperature, and pH effect fish within the stream.
 install.packages("readxl")
 library(readxl)
 my_data <- read_excel("env.sel_spp_matrices.xlsx")
