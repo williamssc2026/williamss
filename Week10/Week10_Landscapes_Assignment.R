@@ -98,6 +98,6 @@ plot_smooth(gam.mod, view="RBI", rm.ranef=FALSE)
   #In prep for that, find one data source to compare with either the data in dbfishR OR DataRetrieval. (5 pts)
   #Read data from that source into your script. (5 pts)
   #Create any analysis of your choice that combines the two data sources, this can be as simple as a linear model. (5 pts)
-credit<- "credit_input_data"
+
 
 l
