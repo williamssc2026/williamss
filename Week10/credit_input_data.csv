@@ -1,0 +1,13 @@
+Time_period,Stream_order,Sites_with_BT_present,Sites_with_BT_absent,Sample_number
+Past,1,8,19,1.074074074
+Past,2,18,22,1.05
+Past,3,13,57,1.114285714
+Past,4,20,44,1.1875
+Past,5,1,31,1.15625
+Past,6,0,14,1.142857143
+Recent,1,23,168,1.167539267
+Recent,2,27,206,1.515021459
+Recent,3,27,230,1.813229572
+Recent,4,34,142,2.659090909
+Recent,5,14,65,2.240506329
+Recent,6,3,29,2.84375
