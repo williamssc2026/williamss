@@ -60,40 +60,6 @@ gage_df$year <- sapply(strsplit(as.character(gage_df$dateTime), "-"),"[[",1)#Cre
 R_B_HUC <- aggregate(X_00060_00003~year+site_no, data = gage_df, FUN = RBIcalc)#Aggregate by year and site w/in the HUC
 colnames(R_B_HUC)[3] <- "RBI" #rename column
 
-fish_rec <- get_fish_records()
-
-brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Species == "Brown Trout" & Pass == "Pass 1"), FUN = length)
-colnames(brookie_count)[2] <- "TotalCount"
-small_brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Length_mm < 100 & Species == "Brown Trout" & Pass == "Pass 1"), FUN = length)
-colnames(small_brookie_count)[2] <- "SmallCount"
-big_brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Length_mm > 99 & Species == "Brown Trout" & Pass == "Pass 1"), FUN = length)
-colnames(big_brookie_count)[2] <- "BigCount"
-
-df_list <- list(brookie_count,small_brookie_count, big_brookie_count)
-all_brookies <- Reduce(function(x, y) merge(x,y, all= TRUE), df_list)
-
-all_brookies$SmallCount[is.na(all_brookies$SmallCount)] <- 0 #this allows the replace NA below to only take care of 100% YOY NAs
-all_brookies$YOYRatio <- all_brookies$SmallCount/(all_brookies$BigCount+all_brookies$SmallCount)
-all_brookies$YOYRatio[is.na(all_brookies$YOYRatio)] <- 1 #NAs are 100% YOY.
-
-brookie_events <- merge(all_brookies, events_meta)
-
-library(dataRetrieval)
-
-HUC6 <- "020501"#North Branch Susquehanna
-HUC_list <-paste(rep(HUC6,10), seq(0, 9, length.out = 10), sep="0")#To do a full HUC6 at once, just pick your HUC6 and auto-populate the subwatersheds (only works up to 9 HUC8 in a HUC6)
-
-gage_df <- readNWISdata(huc = HUC_list, parameterCd = "00060", startDate = "2010-01-01", endDate = "2020-12-31")
-
-devtools::install_github(repo = 'leppott/ContDataQC', force = TRUE)
-1
-1
-library(ContDataQC)
-
-gage_df$year <- sapply(strsplit(as.character(gage_df$dateTime), "-"),"[[",1)#Create year to get annual R-B index
-
-R_B_HUC <- aggregate(X_00060_00003~year+site_no, data = gage_df, FUN = RBIcalc)#Aggregate by year and site w/in the HUC
-colnames(R_B_HUC)[3] <- "RBI" #rename column
 
 stations_meta <- readNWISsite(unique(R_B_HUC$site_no))
 
