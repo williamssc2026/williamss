@@ -24,11 +24,11 @@ events_meta$year <-substring(as.character(events_meta$EventCode),1,4)
 
 fish_rec <- get_fish_records()
 
-brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Species == "Brook Trout" & Pass == "Pass 1"), FUN = length)
+brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Species == "Brown Trout" & Pass == "Pass 1"), FUN = length)
 colnames(brookie_count)[2] <- "TotalCount"
-small_brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Length_mm < 100 & Species == "Brook Trout" & Pass == "Pass 1"), FUN = length)
+small_brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Length_mm < 100 & Species == "Brown Trout" & Pass == "Pass 1"), FUN = length)
 colnames(small_brookie_count)[2] <- "SmallCount"
-big_brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Length_mm > 99 & Species == "Brook Trout" & Pass == "Pass 1"), FUN = length)
+big_brookie_count <- aggregate(ID~EventCode, data = subset(fish_rec, Length_mm > 99 & Species == "Brown Trout" & Pass == "Pass 1"), FUN = length)
 colnames(big_brookie_count)[2] <- "BigCount"
 
 df_list <- list(brookie_count,small_brookie_count, big_brookie_count)
@@ -50,16 +50,11 @@ gage_df <- readNWISdata(huc = HUC_list, parameterCd = "00060", startDate = "2010
 devtools::install_github(repo = 'leppott/ContDataQC', force = TRUE)
 1
 library(ContDataQC)
-if(!require(remotes)){install.packages("remotes")}  #install if needed
-remotes::install_github("leppott/ContDataQC")
-1
-install.packages("ContDataQC", dependencies = TRUE, INSTALL_opts = '--no-lock')
 
 gage_df$year <- sapply(strsplit(as.character(gage_df$dateTime), "-"),"[[",1)#Create year to get annual R-B index
 
 R_B_HUC <- aggregate(X_00060_00003~year+site_no, data = gage_df, FUN = RBIcalc)#Aggregate by year and site w/in the HUC
 colnames(R_B_HUC)[3] <- "RBI" #rename column
-
 
 stations_meta <- readNWISsite(unique(R_B_HUC$site_no))
 
@@ -105,15 +100,26 @@ plot_smooth(gam.mod, view="RBI", rm.ranef=FALSE)
   #In prep for that, find one data source to compare with either the data in dbfishR OR DataRetrieval. (5 pts)
   #Read data from that source into your script. (5 pts)
   #Create any analysis of your choice that combines the two data sources, this can be as simple as a linear model. (5 pts)
-#DryAd data set: https://datadryad.org/stash/dataset/doi:10.5061/dryad.sxksn02zj
-#compares to dbfishR "stream flashiness" data by testing environmental factors like water flow, temperature, and pH effect fish within the stream.
 install.packages("readxl")
 library(readxl)
-my_data <- read_excel("env.sel_spp_matrices.xlsx")
-colnames(my_data)
-summary(my_data)
-events_meta$names<- paste(events_meta$SiteCode, events_meta$SiteID, events_meta$ChooseMe, events_meta$SiteName, events_meta$TribTo)
-events_meta
-events_meta.means <- aggregate(x = events_meta, by = list(events_meta$names), FUN = "mean")
-events_meta.means1 <- events_meta.means[,-2]
-events_meta.means2 <- events_meta.means1[,-4:-6]
+station_data <- read_excel("Copy of station.xlsx")
+narrow_data<- read_excel("Copy of narrowresult.xlsx")
+narrow_data1<- narrow_data[,-5:-6]
+narrow_data2<-narrow_data1[, -7: -9]
+narrow_data3<-narrow_data2 [,-11]
+narrow_data4<- narrow_data3 [,-12]
+narrow_data5<- narrow_data4 [, -13:-22]
+narrow_data6<- narrow_data5 [, -6]
+narrow_data7<- narrow_data6 [,-13:-50]
+narrow_data8 <- narrow_data7 [, -13:-21]
+clean_datanarrow <- na.omit(narrow_data8)
+
+model1 <- lm(ResultMeasureValue ~ MonitoringLocationIdentifier, data = clean_datanarrow)
+
+station_data1<- station_data [, -3]
+station_data2<- station_data1 [, -5]
+station_data3<- station_data2 [, -26:-34]
+clean_datastation <- na.omit(station_data3)
+
+plot(model1)
+plot(x, y, main = "Linear Model Plot", xlab = "ResultsMeasureValue", ylab = "MonitoringLocationIdentifier", pch = 19)
