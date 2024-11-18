@@ -90,6 +90,8 @@ plot(veg3$Acer_campestre~veg3$Adox_moschatellina)
 #If there are less organisms, including other plants to protect the stems, this could result in higher predation due to less cover and other food sources for predators. 
 #Biomass supports different amounts of biodiversity depending on what it can provide, if it is significantly dry, then there is less organisms within the community.
 
+#This is all true, but did not combine data from two sheets for the analysis.
+
 # (Q3 - 6 pts) Provide a 3-4 sentence synthesis of how these results relate to one another and the value of considering both together for interpreting biotic-abiotic interactions.
 
 #Both results can relate to each other by having an effect on one another's abundance/outcome.
