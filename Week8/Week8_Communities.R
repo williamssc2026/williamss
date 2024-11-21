@@ -6,7 +6,7 @@ library(vegan)
 data(dune)
 # There is also a data frame of environmental factors that match the dune plants that we will use this week:
 data(dune.env)
-?dune.env
+
 # We are focusing on Redundancy Analysis (RDA).
   # But all of these methods can be transferred to other multivariate techniques very easily.
   # pca() and cca() can typically just replace the rda() in any of these functions and models.
@@ -27,7 +27,6 @@ head(dune.env)
   # This should look very familiar to the model syntax we have used so far.
 mod1 <- rda(dune ~ Use, dune.env)
 mod1
-#dune is its own matrix and use is a column?
   #The model call gives us constrained and unconstrained variance
     # Constrained is the percent of the axes that is explained by "Use"
     # Unconstrained is similar to the residuals of a linear model.
@@ -67,7 +66,7 @@ text(mod3, display="sites", labels = as.character(dune.env$Management))
   # We would expect this based on our high variance explained and significant p-value.
   # But statistically viewing this relationship can be difficult.
   # We will draw 95% confidence intervals around the "centroid" (average score) for each management group.
-  # This is done with the ordiellipse() function (ordination elipse(circle around it)). Notice there is an argument for the confidence interval and the grouping:
+  # This is done with the ordiellipse() function. Notice there is an argument for the confidence interval and the grouping:
 pl <- ordiellipse(mod3, dune.env$Management, kind="se", conf=0.95, lwd=2, draw = "polygon", 
                   col="skyblue", border = "blue")
 summary(pl)
@@ -99,7 +98,6 @@ Species_Scores <- mod3$CCA$v
 
 head(Site_Scores)
   #notice we now have 6 axes. That is because the original model created 6 axes that were able to constrain (explain) the data.
-#gives individual axis scores
 
 #We'll just focus on the site scores and plot Axis 2 against Axis 3:
 

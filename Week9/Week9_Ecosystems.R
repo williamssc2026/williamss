@@ -9,7 +9,7 @@
 
 library(readxl)
 
-setwd("C:/GitHub/R4Eco_2024/Week9")
+setwd("C:/GitHub/williamss/Week9")
 
 # First, read in the abiotic data:
   # Make sure the excel file is NOT open on your computer or it will generate an error (unlike read.csv)
@@ -56,13 +56,14 @@ abiotic$names <- paste(abiotic$Site, abiotic$Land_Use, abiotic$Plot)
 
 head(abiotic)
 #Same for the nematodes, but with different column names:
+# Used Location instead of Site but still worked
 nema$names <- paste(nema$Location, nema$Land_use, nema$Plot)
 
 #Now we can use aggregate() to create means by the $names column:
 abiotic.means <- aggregate(x = abiotic, by = list(abiotic$names), FUN = "mean")
   # This created warnings, so we should see what the data frame looks like:
 head(abiotic.means)
-  # The warnings are a result of the non-numeric columns, which have just been converted to NAs
+  # The warnings are a result of the non-numeric columns (names), which have just been converted to NAs
   # Not a big deal for our purposes.
 
 # Nematodes as well:
@@ -72,6 +73,7 @@ head(nema.means)
   # It's the same issue of creating NAs, which we can ignore.
 
 # For our multivariate analysis we need to remove the NA and plot columns:
+# took out of all the columns with NAs so there are only numeric values
 abiotic.means1 <- abiotic.means[,-16] # NA column
 abiotic.means2 <- abiotic.means1[,-1:-6] # Plot and NA columns
 abiotic.means2 <- sapply(abiotic.means2, as.numeric ) # Make sure everything is numeric.
@@ -86,10 +88,11 @@ library(vegan)
 colnames(abiotic.means2)
 ord <- rda(nema.means2 ~ pH + totalN + Perc_ash + Kalium + Magnesium + Ca + Al + TotalP + OlsenP, abiotic.means2)
 ord
+#use to explain nematode community
 #63% of the variance explained is pretty good!
   # It looks like almost all of it comes from Axis 1
 anova(ord)  
-  # But the p-value is not significant. It appears our data might be over-fitted
+  # But the p-value is not significant. It appears our data might be over-fitted (because we are repeating the same thing multiple time0)
 plot(ord, ylim = c(-2,2), xlim = c(-5,5))  
   # I've added the ylim and xlim to remove two extreme outliers and make the plot easier to interpret.
   # The first hint at our high p-value is the co-linear terms. Some arrows are nearly on top of each other.
@@ -101,7 +104,7 @@ plot(ord, ylim = c(-2,2), xlim = c(-5,5))
 # This is done by removing variables one "step" at a time to see how the predictive ability of the model changes.
 # We need to give it a bit of help. The step function needs something to compare against.
   # We will use an intercept model, essentially acting as the null hypothesis:
-  #
+  #R selecting variables for you
 ord <- rda(nema.means2 ~., abiotic.means2) # shorthand for the model that includes everything.
 ord.int <- rda(nema.means2 ~1, abiotic.means2) # shorthand for the model that only includes intercepts.
 
@@ -111,6 +114,8 @@ step.mod <- ordistep(ord.int, scope = formula(ord), selection = "both")
 step.mod$anova
 
 step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
+#getting rid of all other variables gives a better explination of N
+#shows that best model only includes nitrogen
 # No ANOVA test for the ordiR2step function.
 
 # From this, only nitrogen is predicting the community.
@@ -120,7 +125,9 @@ step.R2mod <- ordiR2step(ord.int, scope = formula(ord), selection = "forward")
 ord2 <- rda(nema.means2 ~ totalN, abiotic.means2)
 ord2
 anova(ord2)
+#significant so we can plot
 plot(ord2)
+#indirect effect of nematodes and nitrogen
   # We are explaining much less variance now, but it's a significant relationship.
 
 # Botany ####
