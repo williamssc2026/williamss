@@ -5,7 +5,7 @@ remotes::install_github("bnosac/image", subdir = "image.darknet")
 library(image.darknet)
 
 # Set working directory 
-setwd("C:/GitHub/williamss/Week11")
+setwd("C:/GitHub/R4Eco_2024/Week11")
 
 
 # Detect - where are the objects?
