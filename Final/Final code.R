@@ -33,7 +33,7 @@ install.packages("mgcv")
 library(mgcv)
 filtered_data <- subset(df_merged, Sex != "NaN")
 filtered_data$RowNumber <- seq_along(filtered_data$Sex)
-model2 <- gam(Survived ~ s(RowNumber), data = filtered_data)
+model2 <- gam(Survived ~ factor(Exposed), data = filtered_data)
 summary(model2)
 
 #To create the next figure I installed the "ggplot" package. 
@@ -42,8 +42,9 @@ library(ggplot2)
 
 #With the "filtered_data" dataframe, I used sex of individuals and how many survived.
 #I had to put a limit on the y-axis so the data would fit the statistics proportionally. 
-ggplot(filtered_data, aes(x = Sex, y = Survived)) + ylim(0,100) +
-  geom_bar(stat = "identity")
+ggplot(filtered_data, aes(x = Exposed, y = Survived)) + ylim(0,100) +
+  geom_bar(stat = "identity")+
+  ggtitle("Days Survived Between Exposure Status")
 
 #To make the next linear model, I had to clean the data of NA values.
 clean<- na.omit(filtered_data)
