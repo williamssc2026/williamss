@@ -40,11 +40,22 @@ summary(model2)
 install.packages("ggplot2")
 library(ggplot2)
 
-#With the "filtered_data" dataframe, I used sex of individuals and how many survived.
-#I had to put a limit on the y-axis so the data would fit the statistics proportionally. 
-ggplot(filtered_data, aes(x = Exposed, y = Survived)) + ylim(0,100) +
-  geom_bar(stat = "identity")+
-  ggtitle("Days Survived Between Exposure Status")
+#With the "filtered_data" dataframe, I reduced the amount of data shown to 20% because all the data was too clustered for interpretation without reduction.
+#I had to put a limit on the x-axis so the data would show proportions clearly because showing the full 60,000 points was difficult to read.
+#I made the points smaller and more spread out by altering "size" "width" "height" and "alpha"
+#I made sure the two different points of exposure were different colors so they could be differenciated.
+#Finally i was able to make the graph into a scatterplot.
+sampled_data <- filtered_data[sample(nrow(filtered_data), size = 0.2 * nrow(filtered_data)), ]
+ggplot(sampled_data, aes(x = 1:nrow(sampled_data), y =Survived, color = factor(Exposed))) +
+  geom_jitter(aes(color = factor(Exposed)), size = 0.5, width = 0.2, height = 0.2, alpha = 0.6) +
+  geom_point(size = 3) +  # Plot the points
+  labs(
+    x = "Number of Individuals",
+    y = "Number of Days Survived",
+    color = "Exposed"
+  ) + ggtitle("Survival Days by Exposure Status")+
+  scale_color_manual(values = c("purple", "turquoise")) +  # Set colors for Exposed vs. Not Exposed
+  theme_minimal() + xlim(0,5000)
 
 #To make the next linear model, I had to clean the data of NA values.
 clean<- na.omit(filtered_data)
@@ -52,13 +63,21 @@ clean<- na.omit(filtered_data)
 model3 <- lm(Died ~ Exposed, data = clean)
 summary(model3)
 
-#For the last figure, I had to change the column from numeric to character values.
-#Originally 0 stood for survived and 1 stood for died.
-filtered_data$Died[filtered_data$Died == "0"] <- "survived"
-filtered_data$Died[filtered_data$Died == "1"] <- "died"
+#For the last figure, I had to count the number of "1" and "0" values in the "Died" column.
+#Then I had to change the numeric values of the "Died" column to represent character values of "Death" and "Survived".
+#Using this I made a bar graph showing number of individuals who survived and didn't.
+  summary_data <- data.frame(
+    Category = c("Death", "Survived"),
+    Count = c(sum(df_merged$Died == 1), sum(df_merged$Died == 0))  # Count deaths and survivors
+  )
 
-#I made a barplot with "died" or "survived" stats as the x-axis, and number of individuals on the y-axis.
-#I had to limit the y-axis to how many total individuals were present, so the chart fit the statistics proportionally. 
-ggplot(filtered_data, aes(x = Died, y = RowNumber)) + ylim(0,63000) +
-  geom_bar(stat = "identity") +
-  labs(x = "Survivors", y = "Number of Individuals")
+  ggplot(summary_data, aes(x = Category, y = Count, fill = Category)) +
+    geom_bar(stat = "identity") +  # Use stat="identity" to map actual data values to the bars
+    scale_fill_manual(values = c("Death" = "darkred", "Survived" = "darkgreen")) +  # Custom colors
+    labs(
+      title = "Death and Survival Counts",
+      x = "Survival Status",
+      y = "Count"
+    )  +
+    theme_minimal() 
+  
