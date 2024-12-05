@@ -10,7 +10,7 @@ colnames(datamass)[colnames(datamass) == 'Days_Survived.1'] <- 'Survived'
 colnames(dataset1)[colnames(dataset1) == 'DaysSurv'] <- 'Survived'
 colnames(dataset1)[colnames(dataset1) == 'DeathDate'] <- 'Died'
 
-#I merge the datasets by the columns sharing the same information I plan to use in the figures and models. 
+#I merge the datasets by the columns sharing the same information I might use in the figures and models. 
 df_merged <- merge(dataset1[, c("Exposed", "Mass1", "Sex")], datamass[, c("Exposed", "Survived", "Died")], by = "Exposed")
 
 #Model one is a linear model comparing mass of the frogs to how many days they survived with Bd fungus.
@@ -22,9 +22,9 @@ agg_df <- aggregate(Survived ~ Mass1, data = df_merged, FUN = mean)
 
 #Now I am able to plot my data for viewing. I made a scatter plot from the agg_df dataframe using the "Survived" and "Mass1" columns.
 #The mass is the x-axis and the days survived is the y-axis.
-#I made the plotting points diamonds and chose a purple color. 
+#I made the plotting points circles and chose a purple color for clear interpretation. 
 plot(agg_df$Mass1, agg_df$Survived, main = "Days vs Mass", 
-     xlab = "Mass (g)", ylab = "Days Survived", col = "purple", pch = 5)
+     xlab = "Mass (g)", ylab = "Days Survived", col = "purple", pch = 1)
 
 #For the next plot I did a generalized additive model (GAM), using the number of days frogs survived to how many total there were.
 #Before doing a GAM, I had to install the "mgcv" package and filter the data for NaN values.
@@ -66,6 +66,7 @@ summary(model3)
 #For the last figure, I had to count the number of "1" and "0" values in the "Died" column.
 #Then I had to change the numeric values of the "Died" column to represent character values of "Death" and "Survived".
 #Using this I made a bar graph showing number of individuals who survived and didn't.
+#I changed the bar colors and added a title and axis titles for clear interpretation.
   summary_data <- data.frame(
     Category = c("Death", "Survived"),
     Count = c(sum(df_merged$Died == 1), sum(df_merged$Died == 0))  # Count deaths and survivors
