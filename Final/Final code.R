@@ -43,8 +43,8 @@ library(ggplot2)
 #With the "filtered_data" dataframe, I reduced the amount of data shown to 20% because all the data was too clustered for interpretation without reduction.
 #I had to put a limit on the x-axis so the data would show proportions clearly because showing the full 60,000 points was difficult to read.
 #I made the points smaller and more spread out by altering "size" "width" "height" and "alpha"
-#I made sure the two different points of exposure were different colors so they could be differenciated.
-#Finally i was able to make the graph into a scatterplot.
+#I made sure the two different points of exposure were different colors so they could be differentiated.
+#Finally i was able to make the graph into a scatter plot.
 sampled_data <- filtered_data[sample(nrow(filtered_data), size = 0.2 * nrow(filtered_data)), ]
 ggplot(sampled_data, aes(x = 1:nrow(sampled_data), y =Survived, color = factor(Exposed))) +
   geom_jitter(aes(color = factor(Exposed)), size = 0.5, width = 0.2, height = 0.2, alpha = 0.6) +
@@ -54,7 +54,7 @@ ggplot(sampled_data, aes(x = 1:nrow(sampled_data), y =Survived, color = factor(E
     y = "Number of Days Survived",
     color = "Exposed"
   ) + ggtitle("Survival Days by Exposure Status")+
-  scale_color_manual(values = c("purple", "turquoise")) +  # Set colors for Exposed vs. Not Exposed
+  scale_color_manual(values = c("mediumpurple1", "skyblue")) +  # Set colors for Exposed vs. Not Exposed
   theme_minimal() + xlim(0,5000)
 
 #To make the next linear model, I had to clean the data of NA values.
