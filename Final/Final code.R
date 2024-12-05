@@ -10,7 +10,7 @@ colnames(datamass)[colnames(datamass) == 'Days_Survived.1'] <- 'Survived'
 colnames(dataset1)[colnames(dataset1) == 'DaysSurv'] <- 'Survived'
 colnames(dataset1)[colnames(dataset1) == 'DeathDate'] <- 'Died'
 
-#I merge the datasets by the columns sharing the same information I might use in the figures and models. 
+#I merge the datasets by the columns sharing the same information I plan to use in the figures and models. 
 df_merged <- merge(dataset1[, c("Exposed", "Mass1", "Sex")], datamass[, c("Exposed", "Survived", "Died")], by = "Exposed")
 
 #Model one is a linear model comparing mass of the frogs to how many days they survived with Bd fungus.
@@ -20,11 +20,17 @@ summary(model)
 #Since I have a lot of datapoints, I will use the aggregate function to create a mean out of the days survived and mass from the df_merged dataframe.
 agg_df <- aggregate(Survived ~ Mass1, data = df_merged, FUN = mean)
 
-#Now I am able to plot my data for viewing. I made a scatter plot from the agg_df dataframe using the "Survived" and "Mass1" columns.
+#Now I am able to plot my data for viewing. 
+#First i download ggplot package
+#I made a scatter plot from the agg_df dataframe using the "Survived" and "Mass1" columns.
 #The mass is the x-axis and the days survived is the y-axis.
-#I made the plotting points circles and chose a purple color for clear interpretation. 
-plot(agg_df$Mass1, agg_df$Survived, main = "Days vs Mass", 
-     xlab = "Mass (g)", ylab = "Days Survived", col = "purple", pch = 1)
+#I made the plotting points circles and chose a purple color for clear visuals. 
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(agg_df, aes(x = Mass1, y = Survived)) +
+  geom_point() +geom_point(shape = 1, color = "purple")+
+  labs(title = "Correlation of Days Survived and Weight", x = "Mass (g)", y = "Days Survived") +
+  theme_minimal() 
 
 #For the next plot I did a generalized additive model (GAM), using the number of days frogs survived to how many total there were.
 #Before doing a GAM, I had to install the "mgcv" package and filter the data for NaN values.
@@ -43,8 +49,8 @@ library(ggplot2)
 #With the "filtered_data" dataframe, I reduced the amount of data shown to 20% because all the data was too clustered for interpretation without reduction.
 #I had to put a limit on the x-axis so the data would show proportions clearly because showing the full 60,000 points was difficult to read.
 #I made the points smaller and more spread out by altering "size" "width" "height" and "alpha"
-#I made sure the two different points of exposure were different colors so they could be differentiated.
-#Finally i was able to make the graph into a scatter plot.
+#I made sure the two different points of exposure were different colors so they could be differenciated.
+#Finally i was able to make the graph into a scatterplot.
 sampled_data <- filtered_data[sample(nrow(filtered_data), size = 0.2 * nrow(filtered_data)), ]
 ggplot(sampled_data, aes(x = 1:nrow(sampled_data), y =Survived, color = factor(Exposed))) +
   geom_jitter(aes(color = factor(Exposed)), size = 0.5, width = 0.2, height = 0.2, alpha = 0.6) +
@@ -54,7 +60,7 @@ ggplot(sampled_data, aes(x = 1:nrow(sampled_data), y =Survived, color = factor(E
     y = "Number of Days Survived",
     color = "Exposed"
   ) + ggtitle("Survival Days by Exposure Status")+
-  scale_color_manual(values = c("mediumpurple1", "skyblue")) +  # Set colors for Exposed vs. Not Exposed
+  scale_color_manual(values = c("purple", "turquoise")) +  # Set colors for Exposed vs. Not Exposed
   theme_minimal() + xlim(0,5000)
 
 #To make the next linear model, I had to clean the data of NA values.
@@ -66,7 +72,6 @@ summary(model3)
 #For the last figure, I had to count the number of "1" and "0" values in the "Died" column.
 #Then I had to change the numeric values of the "Died" column to represent character values of "Death" and "Survived".
 #Using this I made a bar graph showing number of individuals who survived and didn't.
-#I changed the bar colors and added a title and axis titles for clear interpretation.
   summary_data <- data.frame(
     Category = c("Death", "Survived"),
     Count = c(sum(df_merged$Died == 1), sum(df_merged$Died == 0))  # Count deaths and survivors
