@@ -10,7 +10,7 @@ colnames(datamass)[colnames(datamass) == 'Days_Survived.1'] <- 'Survived'
 colnames(dataset1)[colnames(dataset1) == 'DaysSurv'] <- 'Survived'
 colnames(dataset1)[colnames(dataset1) == 'DeathDate'] <- 'Died'
 
-#I merge the datasets by the columns sharing the same information I plan to use in the figures and models. 
+#I merge the datasets by the columns sharing the same information I might use in the figures and models. 
 df_merged <- merge(dataset1[, c("Exposed", "Mass1", "Sex")], datamass[, c("Exposed", "Survived", "Died")], by = "Exposed")
 
 #Model one is a linear model comparing mass of the frogs to how many days they survived with Bd fungus.
@@ -42,15 +42,13 @@ filtered_data$RowNumber <- seq_along(filtered_data$Sex)
 model2 <- gam(Survived ~ factor(Exposed), data = filtered_data)
 summary(model2)
 
-#To create the next figure I installed the "ggplot" package. 
-install.packages("ggplot2")
-library(ggplot2)
+
 
 #With the "filtered_data" dataframe, I reduced the amount of data shown to 20% because all the data was too clustered for interpretation without reduction.
 #I had to put a limit on the x-axis so the data would show proportions clearly because showing the full 60,000 points was difficult to read.
 #I made the points smaller and more spread out by altering "size" "width" "height" and "alpha"
-#I made sure the two different points of exposure were different colors so they could be differenciated.
-#Finally i was able to make the graph into a scatterplot.
+#I made sure the two different points of exposure were different colors so they could be differentiated.
+#Finally i was able to make the graph into a scatterplot with the ggplot package.
 sampled_data <- filtered_data[sample(nrow(filtered_data), size = 0.2 * nrow(filtered_data)), ]
 ggplot(sampled_data, aes(x = 1:nrow(sampled_data), y =Survived, color = factor(Exposed))) +
   geom_jitter(aes(color = factor(Exposed)), size = 0.5, width = 0.2, height = 0.2, alpha = 0.6) +
@@ -60,7 +58,7 @@ ggplot(sampled_data, aes(x = 1:nrow(sampled_data), y =Survived, color = factor(E
     y = "Number of Days Survived",
     color = "Exposed"
   ) + ggtitle("Survival Days by Exposure Status")+
-  scale_color_manual(values = c("purple", "turquoise")) +  # Set colors for Exposed vs. Not Exposed
+  scale_color_manual(values = c("mediumpurple1", "skyblue")) +  # Set colors for Exposed vs. Not Exposed
   theme_minimal() + xlim(0,5000)
 
 #To make the next linear model, I had to clean the data of NA values.
@@ -71,6 +69,7 @@ summary(model3)
 
 #For the last figure, I had to count the number of "1" and "0" values in the "Died" column.
 #Then I had to change the numeric values of the "Died" column to represent character values of "Death" and "Survived".
+#I made the bars different colors for easier interpretation and created a title axis lables.
 #Using this I made a bar graph showing number of individuals who survived and didn't.
   summary_data <- data.frame(
     Category = c("Death", "Survived"),
