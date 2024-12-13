@@ -86,3 +86,5 @@ summary(model3)
     )  +
     theme_minimal() 
   
+  #These figures are great!
+  
